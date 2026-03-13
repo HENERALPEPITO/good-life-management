@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Bebas Neue", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --color-accent: #FF6600;
+  --color-brand-black: #111111;
+  --color-divider-dark: rgba(0, 0, 0, 0.1);
+  --color-divider-light: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    @apply font-body bg-white text-brand-black antialiased;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  * {
+    border-radius: 0 !important;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6600;
+}
