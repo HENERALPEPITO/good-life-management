@@ -31,11 +31,11 @@ const artists: Artist[] = [
     id: 'michaelbm',
     name: 'MICHAELBM',
     genre: 'TECH HOUSE / LATIN TECH',
-    image: 'https://picsum.photos/seed/michaelbm/800/1200',
+    image: '/images/Michaelbm/Michaelbm_main.JPEG',
     bio: 'Fusing Latin rhythms with driving Tech House beats, MichaelBM has carved a unique niche in the global electronic landscape. His signature sound is a staple in clubs from Ibiza to Miami.',
     instagram: '@michaelbmmusic',
     spotify: 'MichaelBM',
-    gallery: ['https://picsum.photos/seed/mbm1/400/400', 'https://picsum.photos/seed/mbm2/400/400', 'https://picsum.photos/seed/mbm3/400/400', 'https://picsum.photos/seed/mbm4/400/400']
+    gallery: ['/images/Michaelbm/Michaelbm_gallery1.JPEG', '/images/Michaelbm/Michaelbm_gallery2.JPEG', '/images/Michaelbm/Michaelbm_gallery3.JPEG', '/images/Michaelbm/Michaelbm_gallery4.JPEG']
   },
   {
     id: 'facu-baez',

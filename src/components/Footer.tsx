@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const artists = [
-    'ANDRUSS', 'MICHAELBM', 'FACU BAEZ', 'JESÚS FERNÁNDEZ',
+    'ANDRUSS', 'MICHAELBM', 'FACU BAEZ', 
     'RAFFA FL', 'MINOW', 'VOID', 'TAYLOR TORRENCE'
   ];
 

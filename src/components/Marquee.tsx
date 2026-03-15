@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Marquee: React.FC = () => {
-  const content = "ANDRUSS · TECH HOUSE · MICHAELBM · LATIN TECH · FACU BAEZ · MINIMAL BASS · JESÚS FERNÁNDEZ · AFRO HOUSE · RAFFA FL · MINOW · VOID · TAYLOR TORRENCE · TECHNO · ";
+  const content = "ANDRUSS · TECH HOUSE · MICHAELBM · LATIN TECH · FACU BAEZ · MINIMAL BASS · AFRO HOUSE · RAFFA FL · MINOW · VOID · TAYLOR TORRENCE · TECHNO · ";
   
   return (
     <div className="bg-black py-8 overflow-hidden border-y border-divider-light">
