@@ -8,11 +8,33 @@ export default function ContactPage() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormState({ name: '', email: '', message: '' });
+        setTimeout(() => setIsSubmitted(false), 6000);
+      } else {
+        const errorData = await response.json();
+        alert('Failed to send message: ' + (errorData.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred while sending your message. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -85,12 +107,13 @@ export default function ContactPage() {
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={!isLoading ? { scale: 1.02 } : {}}
+            whileTap={!isLoading ? { scale: 0.98 } : {}}
             type="submit"
-            className="w-full py-6 bg-white text-black font-bold text-xl tracking-widest hover:bg-accent hover:text-white transition-all duration-300 uppercase"
+            disabled={isLoading}
+            className={`w-full py-6 bg-white text-black font-bold text-xl tracking-widest transition-all duration-300 uppercase ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent hover:text-white'}`}
           >
-            SEND MESSAGE
+            {isLoading ? 'SENDING...' : 'SEND MESSAGE'}
           </motion.button>
         </motion.form>
 
@@ -100,7 +123,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 p-6 border-l-4 border-accent bg-zinc-900 text-white text-sm font-bold uppercase tracking-widest"
           >
-            Message sent. We'll be in touch.
+            We have received your request Thank you! Check your inbox for a confirmation.
           </motion.div>
         )}
       </div>
