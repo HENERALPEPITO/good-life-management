@@ -97,15 +97,7 @@ const ArtistModal: React.FC<ArtistModalProps> = ({ artist, onClose }) => {
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="text-[10px] font-body font-bold text-white/40 uppercase tracking-[0.3em] mb-6">
-                    ASSETS
-                  </h4>
-                  <button className="flex items-center gap-4 text-white hover:text-accent transition-all group border border-white/10 px-6 py-3 hover:border-accent">
-                    <Download size={20} className="text-accent" />
-                    <span className="text-sm font-body font-bold uppercase tracking-widest">DOWNLOAD PRESS KIT</span>
-                  </button>
-                </div>
+      
               </div>
 
               {/* Gallery Grid */}

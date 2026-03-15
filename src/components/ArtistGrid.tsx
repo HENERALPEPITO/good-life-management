@@ -31,11 +31,11 @@ const artists: Artist[] = [
     id: 'michaelbm',
     name: 'MICHAELBM',
     genre: 'TECH HOUSE / LATIN TECH',
-    image: 'https://picsum.photos/seed/michaelbm/800/1200',
+    image: '/images/Michaelbm/Michaelbm_main.JPEG',
     bio: 'Fusing Latin rhythms with driving Tech House beats, MichaelBM has carved a unique niche in the global electronic landscape. His signature sound is a staple in clubs from Ibiza to Miami.',
     instagram: '@michaelbmmusic',
     spotify: 'MichaelBM',
-    gallery: ['https://picsum.photos/seed/mbm1/400/400', 'https://picsum.photos/seed/mbm2/400/400', 'https://picsum.photos/seed/mbm3/400/400', 'https://picsum.photos/seed/mbm4/400/400']
+    gallery: ['/images/Michaelbm/Michaelbm_gallery1.JPEG', '/images/Michaelbm/Michaelbm_gallery2.JPEG', '/images/Michaelbm/Michaelbm_gallery3.JPEG', '/images/Michaelbm/Michaelbm_gallery4.JPEG']
   },
   {
     id: 'facu-baez',
@@ -47,16 +47,16 @@ const artists: Artist[] = [
     spotify: 'Facu Baez',
     gallery: ['/images/facu-baez/facu-baez_gallery1.jpeg', '/images/facu-baez/facu-baez_gallery2.jpeg', '/images/facu-baez/facu-baez_gallery3.jpeg', '/images/facu-baez/facu-baez_gallery4.jpeg']
   },
-  {
-    id: 'jesus-fernandez',
-    name: 'JESÚS FERNÁNDEZ',
-    genre: 'AFRO HOUSE / LATIN HOUSE',
-    image: 'https://picsum.photos/seed/jesus/800/1200',
-    bio: 'Jesús Fernández brings soulful, organic textures to the dancefloor. His Afro House influence is felt in every percussion-heavy set, creating an immersive experience that transcends borders.',
-    instagram: '@jesusfernandezmusic',
-    spotify: 'Jesús Fernández',
-    gallery: ['https://picsum.photos/seed/jf1/400/400', 'https://picsum.photos/seed/jf2/400/400', 'https://picsum.photos/seed/jf3/400/400', 'https://picsum.photos/seed/jf4/400/400']
-  },
+  // {
+  //   id: 'jesus-fernandez',
+  //   name: 'JESÚS FERNÁNDEZ',
+  //   genre: 'AFRO HOUSE / LATIN HOUSE',
+  //   image: 'https://picsum.photos/seed/jesus/800/1200',
+  //   bio: 'Jesús Fernández brings soulful, organic textures to the dancefloor. His Afro House influence is felt in every percussion-heavy set, creating an immersive experience that transcends borders.',
+  //   instagram: '@jesusfernandezmusic',
+  //   spotify: 'Jesús Fernández',
+  //   gallery: ['https://picsum.photos/seed/jf1/400/400', 'https://picsum.photos/seed/jf2/400/400', 'https://picsum.photos/seed/jf3/400/400', 'https://picsum.photos/seed/jf4/400/400']
+  // },
   {
     id: 'raffa-fl',
     name: 'RAFFA FL',
@@ -107,8 +107,8 @@ const ArtistGrid: React.FC = () => {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  const filteredArtists = activeGenre === 'ALL' 
-    ? artists 
+  const filteredArtists = activeGenre === 'ALL'
+    ? artists
     : artists.filter(a => a.genre.includes(activeGenre.toUpperCase()));
 
   const scrollSlider = (direction: 'left' | 'right') => {
@@ -129,13 +129,13 @@ const ArtistGrid: React.FC = () => {
               <h2 className="text-white font-heading text-5xl md:text-7xl tracking-tighter uppercase">GLOBAL ROSTER</h2>
             </div>
             <div className="flex gap-4 mb-2">
-              <button 
+              <button
                 onClick={() => scrollSlider('left')}
                 className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
               >
                 <ChevronLeft size={24} />
               </button>
-              <button 
+              <button
                 onClick={() => scrollSlider('right')}
                 className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
               >
@@ -144,18 +144,18 @@ const ArtistGrid: React.FC = () => {
             </div>
           </div>
 
-          <div 
+          <div
             ref={sliderRef}
             className="flex gap-6 overflow-x-auto no-scrollbar pb-8 snap-x snap-mandatory"
           >
             {artists.slice(0, 5).map((artist) => (
-              <div 
+              <div
                 key={`slide-${artist.id}`}
                 className="flex-none w-[80vw] md:w-[40vw] aspect-[16/9] relative group cursor-pointer snap-start overflow-hidden"
                 onClick={() => setSelectedArtist(artist)}
               >
-                <img 
-                  src={artist.image} 
+                <img
+                  src={artist.image}
                   alt={artist.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
@@ -177,15 +177,14 @@ const ArtistGrid: React.FC = () => {
               <button
                 key={genre}
                 onClick={() => setActiveGenre(genre)}
-                className={`text-sm font-body font-bold uppercase tracking-widest transition-all duration-300 relative ${
-                  activeGenre === genre ? 'text-white' : 'text-zinc-500 hover:text-white'
-                }`}
+                className={`text-sm font-body font-bold uppercase tracking-widest transition-all duration-300 relative ${activeGenre === genre ? 'text-white' : 'text-zinc-500 hover:text-white'
+                  }`}
               >
                 {genre}
                 {activeGenre === genre && (
-                  <motion.div 
+                  <motion.div
                     layoutId="activeTab"
-                    className="absolute -bottom-[33px] left-0 w-full h-[2px] bg-accent" 
+                    className="absolute -bottom-[33px] left-0 w-full h-[2px] bg-accent"
                   />
                 )}
               </button>
@@ -208,9 +207,8 @@ const ArtistGrid: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className={`group relative overflow-hidden cursor-pointer bg-zinc-900 ${
-                  artist.featured ? 'md:col-span-2 md:row-span-2' : 'col-span-1'
-                }`}
+                className={`group relative overflow-hidden cursor-pointer bg-zinc-900 ${artist.featured ? 'md:col-span-2 md:row-span-2' : 'col-span-1'
+                  }`}
                 onClick={() => setSelectedArtist(artist)}
               >
                 {/* Image Container */}
@@ -222,10 +220,10 @@ const ArtistGrid: React.FC = () => {
                     referrerPolicy="no-referrer"
                     loading="lazy"
                   />
-                  
+
                   {/* Cinematic Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-                  
+
                   {/* Content (Bottom Left) */}
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
                     <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
@@ -235,7 +233,7 @@ const ArtistGrid: React.FC = () => {
                       <h3 className="text-white font-heading text-4xl md:text-5xl tracking-tighter uppercase leading-none mb-4">
                         {artist.name}
                       </h3>
-                      
+
                       {/* Hover CTA */}
                       <div className="overflow-hidden h-0 group-hover:h-12 transition-all duration-500">
                         <button className="flex items-center gap-2 text-white font-heading text-lg tracking-widest uppercase border border-white/30 px-6 py-2 hover:bg-accent hover:border-accent transition-all">
@@ -257,9 +255,9 @@ const ArtistGrid: React.FC = () => {
       {/* Artist Modal */}
       <AnimatePresence>
         {selectedArtist && (
-          <ArtistModal 
-            artist={selectedArtist} 
-            onClose={() => setSelectedArtist(null)} 
+          <ArtistModal
+            artist={selectedArtist}
+            onClose={() => setSelectedArtist(null)}
           />
         )}
       </AnimatePresence>

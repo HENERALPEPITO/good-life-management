@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
 const Hero: React.FC = () => {
@@ -32,7 +33,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="block text-accent font-body font-bold text-xs md:text-sm tracking-[0.3em] uppercase mb-6"
+          className="block text-orange-600 font-body font-bold text-xs md:text-sm tracking-[0.3em] uppercase mb-6"
         >
           BOUTIQUE MUSIC COMPANY
         </motion.span>
@@ -60,12 +61,12 @@ const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <a
-            href="#roster"
-            className="inline-block px-10 py-4 border border-white text-white font-heading text-xl tracking-widest hover:bg-accent hover:border-accent transition-all duration-300 rounded-none uppercase"
+          <Link
+            to="/roster"
+            className="inline-block px-10 py-4 border border-white text-white font-heading text-xl tracking-widest hover:bg-orange-600 hover:border-orange-600 transition-all duration-300 rounded-none uppercase"
           >
             VIEW FULL ROSTER
-          </a>
+          </Link>
         </motion.div>
       </div>
 

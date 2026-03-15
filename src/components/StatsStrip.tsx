@@ -42,7 +42,7 @@ const StatsStrip: React.FC = () => {
   return (
     <section className="bg-white py-24 border-b border-black">
       <div className="max-w-[1800px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
-        <StatItem value={8} label="ARTISTS" />
+        <StatItem value={7} label="ARTISTS" />
         <StatItem value={4} label="GENRES" />
         <StatItem value={50} label="STREAMS" suffix="M+" />
         <StatItem value={15} label="YEARS EXPERIENCE" suffix="+" />

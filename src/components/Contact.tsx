@@ -10,10 +10,36 @@ const Contact: React.FC = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormState({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        const errorData = await response.json();
+        console.error('Error:', errorData.error);
+        alert('Failed to send message: ' + errorData.error);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred while sending your message.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -78,9 +104,10 @@ const Contact: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-6 bg-black text-white font-heading text-2xl tracking-widest hover:bg-accent transition-all duration-300 rounded-none uppercase"
+                disabled={isLoading}
+                className={`w-full py-6 bg-black text-white font-heading text-2xl tracking-widest transition-all duration-300 rounded-none uppercase ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent'}`}
               >
-                SEND MESSAGE
+                {isLoading ? 'SENDING...' : 'SEND MESSAGE'}
               </button>
             </form>
 
