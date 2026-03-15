@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const artists = [
@@ -7,12 +8,16 @@ const Footer: React.FC = () => {
     'RAFFA FL', 'MINOW', 'VOID', 'TAYLOR TORRENCE'
   ];
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-black text-white selection:bg-accent selection:text-black">
+    <footer className="bg-black text-white selection:bg-orange-600 selection:text-black">
       {/* ZONE 1 — CTA Banner Strip */}
-      <section className="w-full bg-black border-t-4 border-accent px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <section className="w-full bg-black border-t-4 border-orange-600 px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <p className="font-body text-accent uppercase tracking-[0.2em] text-xs mb-2">
+          <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-xs mb-2">
             WORK WITH US
           </p>
           <h2 className="font-heading text-white text-5xl md:text-6xl leading-none uppercase tracking-tight">
@@ -20,12 +25,12 @@ const Footer: React.FC = () => {
           </h2>
         </div>
 
-        <a 
-          href="#contact"
-          className="group font-heading text-black bg-accent px-10 py-4 text-xl uppercase tracking-widest hover:bg-white transition-colors duration-300 whitespace-nowrap flex-shrink-0"
+        <Link 
+          to="/contact"
+          className="group font-heading text-black bg-orange-600 px-10 py-4 text-xl uppercase tracking-widest hover:bg-white transition-colors duration-300 whitespace-nowrap flex-shrink-0"
         >
           GET IN TOUCH <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
-        </a>
+        </Link>
       </section>
 
       {/* ZONE 2 — Main Footer Body */}
@@ -37,7 +42,7 @@ const Footer: React.FC = () => {
             <p className="font-heading text-white text-3xl tracking-tight leading-none">
               GOOD LIFE
             </p>
-            <p className="font-heading text-accent text-xl tracking-tight leading-none mb-4">
+            <p className="font-heading text-orange-600 text-xl tracking-tight leading-none mb-4">
               MANAGEMENT
             </p>
             <p className="font-body text-white/50 text-xs leading-relaxed uppercase tracking-widest">
@@ -52,7 +57,7 @@ const Footer: React.FC = () => {
                 href="https://instagram.com/goodlife_management"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="footer-link font-body text-white/60 text-xs uppercase tracking-widest hover:text-accent transition-colors duration-200 w-fit"
+                className="footer-link font-body text-white/60 text-xs uppercase tracking-widest hover:text-orange-600 transition-colors duration-200 w-fit"
               >
                 IG — @goodlife_management
               </a>
@@ -61,18 +66,22 @@ const Footer: React.FC = () => {
 
           {/* Col 2 — Navigate */}
           <div>
-            <p className="font-body text-accent uppercase tracking-[0.2em] text-[10px] mb-5">
+            <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-5">
               NAVIGATE
             </p>
             <ul className="space-y-3">
-              {['HOME', 'ROSTER', 'CONTACT'].map(link => (
-                <li key={link}>
-                  <a 
-                    href={`#${link.toLowerCase()}`}
-                    className="footer-link font-heading text-white text-2xl tracking-wide hover:text-accent transition-colors duration-200 w-fit"
+              {[
+                { name: 'HOME', path: '/' },
+                { name: 'ROSTER', path: '/roster' },
+                { name: 'CONTACT', path: '/contact' }
+              ].map(link => (
+                <li key={link.name}>
+                  <Link 
+                    to={link.path}
+                    className="footer-link font-heading text-white text-2xl tracking-wide hover:text-orange-600 transition-colors duration-200 w-fit"
                   >
-                    {link}
-                  </a>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -80,19 +89,19 @@ const Footer: React.FC = () => {
 
           {/* Col 3 — Artists */}
           <div>
-            <p className="font-body text-accent uppercase tracking-[0.2em] text-[10px] mb-5">
+            <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-5">
               ROSTER
             </p>
             <ul className="space-y-2">
               {artists.map(artist => (
                 <li key={artist} className="group flex items-center">
-                  <span className="opacity-0 group-hover:opacity-100 text-accent mr-2 transition-opacity">·</span>
-                  <a 
-                    href="#roster"
-                    className="font-body text-white/60 text-xs uppercase tracking-widest hover:text-accent transition-colors duration-200"
+                  <span className="opacity-0 group-hover:opacity-100 text-orange-600 mr-2 transition-opacity">·</span>
+                  <Link 
+                    to="/roster"
+                    className="font-body text-white/60 text-xs uppercase tracking-widest hover:text-orange-600 transition-colors duration-200"
                   >
                     {artist}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -100,7 +109,7 @@ const Footer: React.FC = () => {
 
           {/* Col 4 — Contact */}
           <div>
-            <p className="font-body text-accent uppercase tracking-[0.2em] text-[10px] mb-5">
+            <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-5">
               CONTACT
             </p>
             <div className="space-y-4">
@@ -110,7 +119,7 @@ const Footer: React.FC = () => {
                 </p>
                 <a 
                   href="mailto:hello@goodlifemgmt.net"
-                  className="font-body text-white text-xs hover:text-accent transition-colors duration-200 break-all"
+                  className="font-body text-white text-xs hover:text-orange-600 transition-colors duration-200 break-all"
                 >
                   hello@goodlifemgmt.net
                 </a>
@@ -126,16 +135,16 @@ const Footer: React.FC = () => {
 
             {/* Newsletter micro-input */}
             <div className="mt-8">
-              <p className="font-body text-accent uppercase tracking-[0.2em] text-[10px] mb-3">
+              <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-3">
                 STAY UPDATED
               </p>
-              <div className="flex border-b border-white/30 focus-within:border-accent transition-colors duration-200">
+              <div className="flex border-b border-white/30 focus-within:border-orange-600 transition-colors duration-200">
                 <input
                   type="email"
                   placeholder="your@email.com"
                   className="bg-transparent font-body text-white text-xs placeholder-white/30 outline-none py-2 flex-1 uppercase tracking-widest"
                 />
-                <button className="font-heading text-accent text-sm tracking-widest hover:text-white transition-colors duration-200 pl-3">
+                <button className="font-heading text-orange-600 text-sm tracking-widest hover:text-white transition-colors duration-200 pl-3">
                   →
                 </button>
               </div>
@@ -170,16 +179,16 @@ const Footer: React.FC = () => {
       {/* ZONE 4 — Copyright Bar */}
       <section className="w-full bg-black border-t border-white/10 px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="font-body text-white/30 text-[10px] uppercase tracking-[0.2em]">
-          ©2025 GOOD LIFE MANAGEMENT. ALL RIGHTS RESERVED.
+          ©2026 GOOD LIFE MANAGEMENT. ALL RIGHTS RESERVED.
         </p>
 
         <div className="flex items-center gap-6">
-          <a 
-            href="#top"
-            className="font-body text-white/30 text-[10px] uppercase tracking-[0.2em] hover:text-accent transition-colors duration-200"
+          <button 
+            onClick={scrollToTop}
+            className="font-body text-white/30 text-[10px] uppercase tracking-[0.2em] hover:text-orange-600 transition-colors duration-200"
           >
             BACK TO TOP ↑
-          </a>
+          </button>
           <span className="font-body text-white/20 text-[10px] uppercase tracking-[0.2em] hidden sm:inline">
             EMPOWERING TALENT WORLDWIDE
           </span>
@@ -197,7 +206,7 @@ const Footer: React.FC = () => {
           left: 0;
           width: 0;
           height: 1px;
-          background: #FF6600;
+          background: #EA580C;
           transition: width 0.3s ease;
         }
         .footer-link:hover::after {

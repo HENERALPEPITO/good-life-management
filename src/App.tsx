@@ -1,35 +1,44 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Marquee from './components/Marquee';
-import AboutStrip from './components/AboutStrip';
-import StatsStrip from './components/StatsStrip';
-import FestivalLogos from './components/FestivalLogos';
-import ArtistGrid from './components/ArtistGrid';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
-import MobileDock from './components/MobileDock';
+import HomePage from './pages/HomePage';
+import RosterPage from './pages/RosterPage';
+import ContactPage from './pages/ContactPage';
+
+function AnimatedRoutes() {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/roster" element={<RosterPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white text-black selection:bg-accent selection:text-white overflow-x-hidden">
-      <Navbar />
-      <main>
-        <Hero />
-        <Marquee />
-        <AboutStrip />
-        <StatsStrip />
-        <ArtistGrid />
-        <FestivalLogos />
-        <Contact />
-      </main>
-      <Footer />
-      <MobileDock />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-black text-white selection:bg-accent selection:text-white overflow-x-hidden">
+        <Navbar />
+        <main>
+          <AnimatedRoutes />
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
