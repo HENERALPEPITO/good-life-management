@@ -135,18 +135,18 @@ const Footer: React.FC = () => {
 
             {/* Newsletter micro-input */}
             <div className="mt-8">
-              <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-3">
+              {/* <p className="font-body text-orange-600 uppercase tracking-[0.2em] text-[10px] mb-3">
                 STAY UPDATED
-              </p>
+              </p> */}
               <div className="flex border-b border-white/30 focus-within:border-orange-600 transition-colors duration-200">
-                <input
+                {/* <input
                   type="email"
                   placeholder="your@email.com"
                   className="bg-transparent font-body text-white text-xs placeholder-white/30 outline-none py-2 flex-1 uppercase tracking-widest"
                 />
                 <button className="font-heading text-orange-600 text-sm tracking-widest hover:text-white transition-colors duration-200 pl-3">
                   →
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
