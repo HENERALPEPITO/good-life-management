@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import ArtistModal from './ArtistModal';
 
 interface Artist {
@@ -100,105 +100,40 @@ const artists: Artist[] = [
   }
 ];
 
-const genres = ['ALL', 'TECH HOUSE', 'TECHNO', 'AFRO HOUSE', 'LATIN HOUSE'];
-
 const ArtistGrid: React.FC = () => {
-  const [activeGenre, setActiveGenre] = useState('ALL');
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const filteredArtists = activeGenre === 'ALL'
-    ? artists
-    : artists.filter(a => a.genre.includes(activeGenre.toUpperCase()));
-
-  const scrollSlider = (direction: 'left' | 'right') => {
-    if (sliderRef.current) {
-      const scrollAmount = direction === 'left' ? -400 : 400;
-      sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
+  const sortedArtists = [...artists].sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <section id="roster" className="bg-black py-24 overflow-hidden">
       <div className="max-w-[1800px] mx-auto px-6">
-        {/* Horizontal Slider (Premium Feature) */}
-        <div className="mb-32 relative">
-          <div className="flex justify-between items-end mb-8">
-            <div>
-              <span className="text-accent font-body font-bold text-xs tracking-[0.3em] uppercase mb-2 block">FEATURED TALENT</span>
-              <h2 className="text-white font-heading text-5xl md:text-7xl tracking-tighter uppercase">GLOBAL ROSTER</h2>
-            </div>
-            <div className="flex gap-4 mb-2">
-              <button
-                onClick={() => scrollSlider('left')}
-                className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={() => scrollSlider('right')}
-                className="w-12 h-12 border border-white/20 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-          </div>
-
-          <div
-            ref={sliderRef}
-            className="flex gap-6 overflow-x-auto no-scrollbar pb-8 snap-x snap-mandatory"
-          >
-            {artists.slice(0, 5).map((artist) => (
-              <div
-                key={`slide-${artist.id}`}
-                className="flex-none w-[80vw] md:w-[40vw] aspect-[16/9] relative group cursor-pointer snap-start overflow-hidden"
-                onClick={() => setSelectedArtist(artist)}
-              >
-                <img
-                  src={artist.image}
-                  alt={artist.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
-                <div className="absolute bottom-0 left-0 p-8">
-                  <span className="text-accent font-body text-xs font-bold tracking-widest uppercase mb-2 block">{artist.genre}</span>
-                  <h3 className="text-white font-heading text-4xl md:text-6xl tracking-tighter uppercase">{artist.name}</h3>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Section Header */}
+        <div className="mb-16">
+          <span className="text-accent font-body font-bold text-xs tracking-[0.3em] uppercase mb-2 block">OUR TALENT</span>
+          <h2 className="text-white font-heading text-5xl md:text-7xl tracking-tighter uppercase">GLOBAL ROSTER</h2>
         </div>
 
-        {/* Filter System */}
+        {/* Sorting System */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-16 border-b border-white/10 pb-8">
           <div className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-10">
-            {genres.map((genre) => (
-              <button
-                key={genre}
-                onClick={() => setActiveGenre(genre)}
-                className={`text-sm font-body font-bold uppercase tracking-widest transition-all duration-300 relative ${activeGenre === genre ? 'text-white' : 'text-zinc-500 hover:text-white'
-                  }`}
-              >
-                {genre}
-                {activeGenre === genre && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-[33px] left-0 w-full h-[2px] bg-accent"
-                  />
-                )}
-              </button>
-            ))}
+            <div className="text-sm font-body font-bold uppercase tracking-widest text-white relative">
+              A-Z
+              <motion.div
+                layoutId="activeTab"
+                className="absolute -bottom-[33px] left-0 w-full h-[2px] bg-accent"
+              />
+            </div>
           </div>
           <div className="text-zinc-500 font-body text-xs tracking-widest uppercase">
-            {filteredArtists.length} ARTISTS FOUND
+            {sortedArtists.length} ARTISTS
           </div>
         </div>
 
         {/* Dynamic Portfolio Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[minmax(300px,auto)]">
           <AnimatePresence mode="popLayout">
-            {filteredArtists.map((artist, index) => (
+            {sortedArtists.map((artist, index) => (
               <motion.div
                 key={artist.id}
                 layout
@@ -207,8 +142,7 @@ const ArtistGrid: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className={`group relative overflow-hidden cursor-pointer bg-zinc-900 ${artist.featured ? 'md:col-span-2 md:row-span-2' : 'col-span-1'
-                  }`}
+                className="group relative overflow-hidden cursor-pointer bg-zinc-900"
                 onClick={() => setSelectedArtist(artist)}
               >
                 {/* Image Container */}
