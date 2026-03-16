@@ -11,6 +11,10 @@ interface Artist {
   bio: string;
   instagram: string;
   spotify: string;
+  instagramUrl: string;
+  spotifyUrl: string;
+  beatportUrl: string;
+  youtubeUrl: string;
   gallery: string[];
   featured?: boolean;
 }
@@ -25,6 +29,10 @@ const artists: Artist[] = [
     bio: 'Andruss is a powerhouse in the Tech House scene, known for his infectious grooves and peak-hour energy. With releases on top labels and support from industry giants, he continues to push the boundaries of modern dance music.',
     instagram: '@andrussmusic',
     spotify: 'Andruss',
+    instagramUrl: 'https://www.instagram.com/Andrussmusic',
+    spotifyUrl: 'https://open.spotify.com/artist/6HZwb7Zbnvfo8u1sst4QrI',
+    beatportUrl: 'https://www.beatport.com/artist/andruss/180687',
+    youtubeUrl: 'https://www.youtube.com/AndrussmusicOfficial',
     gallery: ['/images/Andruss/Andruss_gallery1.jpeg', '/images/Andruss/Andruss_gallery2.jpeg', '/images/Andruss/Andruss_gallery3.jpeg', '/images/Andruss/Andruss_gallery4.jpeg']
   },
   {
@@ -35,6 +43,10 @@ const artists: Artist[] = [
     bio: 'Fusing Latin rhythms with driving Tech House beats, MichaelBM has carved a unique niche in the global electronic landscape. His signature sound is a staple in clubs from Ibiza to Miami.',
     instagram: '@michaelbmmusic',
     spotify: 'MichaelBM',
+    instagramUrl: 'https://www.instagram.com/michaelbmmusic/',
+    spotifyUrl: 'https://open.spotify.com/artist/6RY7vqzR938x0DE0Eh6srl',
+    beatportUrl: 'https://www.beatport.com/artist/michaelbm/611490',
+    youtubeUrl: 'https://youtube.com/@michaelbmmusic?si=AQDT1DSgD1FmFU4o',
     gallery: ['/images/Michaelbm/Michaelbm_gallery1.JPEG', '/images/Michaelbm/Michaelbm_gallery2.JPEG', '/images/Michaelbm/Michaelbm_gallery3.JPEG', '/images/Michaelbm/Michaelbm_gallery4.JPEG']
   },
   {
@@ -45,6 +57,10 @@ const artists: Artist[] = [
     bio: 'Facu Baez represents the deeper side of the spectrum. His Minimal Bass productions are masterclasses in restraint and impact, earning him a dedicated following among underground connoisseurs.',
     instagram: '@facubaez',
     spotify: 'Facu Baez',
+    instagramUrl: 'https://www.instagram.com/facu_baezdj',
+    spotifyUrl: 'https://open.spotify.com/artist/22HYVpPiieQRJsUxZslfBN',
+    beatportUrl: 'https://www.beatport.com/artist/facu-baez/939338',
+    youtubeUrl: 'https://www.youtube.com/channel/UCqpGklq_1reqZDtwqUohvBA',
     gallery: ['/images/facu-baez/facu-baez_gallery1.jpeg', '/images/facu-baez/facu-baez_gallery2.jpeg', '/images/facu-baez/facu-baez_gallery3.jpeg', '/images/facu-baez/facu-baez_gallery4.jpeg']
   },
   // {
@@ -66,6 +82,10 @@ const artists: Artist[] = [
     bio: 'A true veteran of the scene, Raffa FL is synonymous with high-quality Tech House. His tracks are consistent chart-toppers, and his DJ sets are legendary for their relentless drive.',
     instagram: '@raffa_fl',
     spotify: 'Raffa FL',
+    instagramUrl: 'https://www.instagram.com/raffafl/',
+    spotifyUrl: 'https://open.spotify.com/artist/0j4dGWeyGGE4GvrAzdZIZ5',
+    beatportUrl: 'https://www.beatport.com/artist/raffa-fl/134550',
+    youtubeUrl: 'https://www.youtube.com/user/raffafldj',
     gallery: ['/images/Rafafl/rafafl_gallery1.jpg', '/images/Rafafl/rafafl_gallery2.jpg', '/images/Rafafl/rafafl_gallery3.jpg', '/images/Rafafl/rafafl_gallery4.jpg']
   },
   {
@@ -76,6 +96,10 @@ const artists: Artist[] = [
     bio: 'Minow is the dark horse of the roster, delivering uncompromising Techno that demands attention. Raw, industrial, and powerful, his sound is built for the darkest corners of the warehouse.',
     instagram: '@minowmusic',
     spotify: 'Minow',
+    instagramUrl: 'https://www.instagram.com/minowmusic/',
+    spotifyUrl: 'https://open.spotify.com/artist/3VyPXiL5JyFlV4Hzl6Y1xE',
+    beatportUrl: 'https://www.beatport.com/artist/minow/599018',
+    youtubeUrl: 'https://www.youtube.com/channel/UCuhUVy3vqL6ttSKjOkbmx2Q',
     gallery: ['/images/Minow/Minow_gallery1.jpeg', '/images/Minow/Minow_gallery2.jpeg', '/images/Minow/Minow_gallery3.jpeg', '/images/Minow/Minow_gallery4.jpeg']
   },
   {
@@ -86,6 +110,10 @@ const artists: Artist[] = [
     bio: 'VOID explores the intersection of melody and machine. His Techno is atmospheric and driving, creating a cinematic journey on the dancefloor that stays with the listener long after the lights go up.',
     instagram: '@void_techno',
     spotify: 'VOID',
+    instagramUrl: 'https://www.instagram.com/voidverified/',
+    spotifyUrl: 'https://open.spotify.com/artist/3giDsMv0eBesae30PimJpx',
+    beatportUrl: 'https://www.beatport.com/track/x/18550407',
+    youtubeUrl: 'https://www.youtube.com/channel/UC1rLy-0bOMlntpKheshZw5Q',
     gallery: ['/images/Void/Void_gallery1.jpeg', '/images/Void/Void_gallery2.jpeg', '/images/Void/Void_gallery3.jpeg', '/images/Void/Void_gallery4.jpeg']
   },
   {
@@ -96,6 +124,10 @@ const artists: Artist[] = [
     bio: 'Taylor Torrence brings a modern, polished edge to the roster. His productions are characterized by intricate sound design and massive hooks, making him a favorite for mainstages worldwide.',
     instagram: '@taylortorrence',
     spotify: 'Taylor Torrence',
+    instagramUrl: 'https://www.instagram.com/taylortorrencemusic/',
+    spotifyUrl: 'https://open.spotify.com/artist/4PhWdminU7odBReTmyyZrH',
+    beatportUrl: 'https://www.beatport.com/artist/taylor-torrence/491446',
+    youtubeUrl: 'https://www.youtube.com/channel/UC5x0x-K0msPdO_oY729Gicg',
     gallery: ['images/Taylor_Torrence/Taylor_torrence_gallery1.png', 'images/Taylor_Torrence/Taylor_torrence_gallery2.png', 'images/Taylor_Torrence/Taylor_torrence_gallery3.png', 'images/Taylor_Torrence/Taylor_torrence_gallery4.png']
   }
 ];
