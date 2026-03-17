@@ -129,6 +129,20 @@ const artists: Artist[] = [
     beatportUrl: 'https://www.beatport.com/artist/taylor-torrence/491446',
     youtubeUrl: 'https://www.youtube.com/channel/UC5x0x-K0msPdO_oY729Gicg',
     gallery: ['images/Taylor_Torrence/Taylor_torrence_gallery1.png', 'images/Taylor_Torrence/Taylor_torrence_gallery2.png', 'images/Taylor_Torrence/Taylor_torrence_gallery3.png', 'images/Taylor_Torrence/Taylor_torrence_gallery4.png']
+  },
+  {
+    id: 'aundreja',
+    name: 'AUNDREJA',
+    genre: 'TECHNO / TRANCE',
+    image: '/images/Aundreja/aundreja_main.jpeg',
+    bio: 'Aundreja is a rising Guatemalan-American techno and trance artist based in Los Angeles. In just over a year, she has become a standout figure in the city’s underground scene through her hypnotic DJ sets, cinematic performances, and emotionally immersive sound.',
+    instagram: '@aundreja',
+    spotify: 'Aundreja',
+    instagramUrl: 'https://www.instagram.com/aundreja/',
+    spotifyUrl: 'https://open.spotify.com/track/56Le9zkYZRlw1xkj45hEFM',
+    beatportUrl: 'https://www.beatport.com/artist/aundreja/1272450',
+    youtubeUrl: 'https://www.youtube.com/@aundreja',
+    gallery: ['/images/Aundreja/aundreja_gallery1.jpeg', '/images/Aundreja/aundreja_gallery3.jpeg', '/images/Aundreja/aundreja_gallery2.jpeg', '/images/Aundreja/aundreja_gallery4.jpeg']
   }
 ];
 

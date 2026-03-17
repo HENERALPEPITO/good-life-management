@@ -35,8 +35,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="block text-orange-600 font-body font-bold text-xs md:text-sm tracking-[0.3em] uppercase mb-6"
         >
-          BOUTIQUE MUSIC COMPANY
-        </motion.span>
+        Boutique music management company        </motion.span>
         
         <motion.h1
           initial={{ opacity: 0, scale: 0.95 }}

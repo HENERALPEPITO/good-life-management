@@ -12,6 +12,7 @@ const menuItems = [
   { name: 'Home', path: '/' },
   { name: 'Roster', path: '/roster' },
   { name: 'Contact', path: '/contact' },
+  { name: 'Publishing', external: 'https://www.goodlife-publishing.com/' },
 ];
 
 export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
@@ -36,9 +37,9 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-full md:w-[500px] bg-black border-l border-zinc-900 z-[101] flex flex-col p-12"
+            className="fixed top-0 right-0 h-full w-full md:w-[500px] bg-black border-l border-zinc-900 z-[101] flex flex-col pt-6 px-12 pb-12"
           >
-            <div className="flex justify-end mb-24">
+            <div className="flex justify-end mb-10">
               <button 
                 onClick={onClose}
                 className="text-white hover:text-accent transition-colors p-2"
@@ -47,29 +48,47 @@ export default function SideMenu({ isOpen, onClose }: SideMenuProps) {
               </button>
             </div>
 
-            <nav className="flex flex-col gap-8">
+            <nav className="flex flex-col gap-10 mb-16">
               {menuItems.map((item, index) => (
                 <motion.div
-                  key={item.path}
+                  key={item.name}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + index * 0.1 }}
                 >
-                  <Link
-                    to={item.path}
-                    onClick={onClose}
-                    className={`group relative text-6xl md:text-7xl font-bold tracking-tighter transition-all duration-300 inline-block ${
-                      location.pathname === item.path ? 'text-accent' : 'text-white hover:text-accent'
-                    }`}
-                  >
-                    <motion.span
-                      whileHover={{ scale: 1.05, x: 10 }}
-                      className="inline-block"
+                  {item.external ? (
+                    <a
+                      href={item.external}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={onClose}
+                      className="group relative text-6xl md:text-7xl font-bold tracking-tighter transition-all duration-300 inline-block text-white hover:text-accent"
                     >
-                      {item.name}
-                    </motion.span>
-                    <span className="absolute -bottom-2 left-0 w-0 h-1 bg-accent transition-all duration-300 group-hover:w-full" />
-                  </Link>
+                      <motion.span
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        className="inline-block"
+                      >
+                        {item.name}
+                      </motion.span>
+                      <span className="absolute -bottom-2 left-0 w-0 h-1 bg-accent transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.path}
+                      onClick={onClose}
+                      className={`group relative text-6xl md:text-7xl font-bold tracking-tighter transition-all duration-300 inline-block ${
+                        location.pathname === item.path ? 'text-accent' : 'text-white hover:text-accent'
+                      }`}
+                    >
+                      <motion.span
+                        whileHover={{ scale: 1.05, x: 10 }}
+                        className="inline-block"
+                      >
+                        {item.name}
+                      </motion.span>
+                      <span className="absolute -bottom-2 left-0 w-0 h-1 bg-accent transition-all duration-300 group-hover:w-full" />
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </nav>

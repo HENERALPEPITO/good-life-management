@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence, motion } from 'motion/react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import RosterPage from './pages/RosterPage';
 import ContactPage from './pages/ContactPage';
 
 function AnimatedRoutes() {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -29,16 +30,26 @@ function AnimatedRoutes() {
   );
 }
 
+function AppLayout() {
+  const location = useLocation();
+  const showFooter = location.pathname !== '/';
+
+  return (
+    <div className="min-h-screen bg-black text-white selection:bg-accent selection:text-white overflow-x-hidden">
+      <ScrollToTop />
+      <Navbar />
+      <main>
+        <AnimatedRoutes />
+      </main>
+      {showFooter && <Footer />}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-black text-white selection:bg-accent selection:text-white overflow-x-hidden">
-        <Navbar />
-        <main>
-          <AnimatedRoutes />
-        </main>
-        <Footer />
-      </div>
+      <AppLayout />
     </Router>
   );
 }

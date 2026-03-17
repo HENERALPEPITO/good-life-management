@@ -8,7 +8,7 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ className = '', variant = 'black' }) => {
   return (
     <img
-      src="/images/logo.png"
+      src="/images/logo_final.png"
       alt="Good Life Music Logo"
       className={`${className} ${variant === 'white' ? 'invert brightness-0 invert-100' : ''}`}
     />

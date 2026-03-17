@@ -46,11 +46,11 @@ const Footer: React.FC = () => {
               MANAGEMENT
             </p>
             <p className="font-body text-white/50 text-xs leading-relaxed uppercase tracking-widest">
-              Boutique Music Company
+              Boutique music management company
             </p>
-            <p className="font-body text-white/50 text-xs leading-relaxed uppercase tracking-widest">
+            {/* <p className="font-body text-white/50 text-xs leading-relaxed uppercase tracking-widest">
               Empowering Talent Worldwide
-            </p>
+            </p> */}
 
             <div className="mt-6 flex flex-col gap-2">
               <a 
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 className="footer-link font-body text-white/60 text-xs uppercase tracking-widest hover:text-orange-600 transition-colors duration-200 w-fit"
               >
-                IG — @goodlife_management
+                @goodlife_management
               </a>
             </div>
           </div>
@@ -124,13 +124,13 @@ const Footer: React.FC = () => {
                   hello@goodlifemgmt.net
                 </a>
               </div>
-              <div>
+              {/* <div>
                 <p className="font-body text-white/40 text-[10px] uppercase tracking-widest mb-1">
                   PHONE
                 </p>
                 <p className="font-body text-white text-xs">+34 693 43 25 06</p>
                 <p className="font-body text-white text-xs">+34 647 33 08 06</p>
-              </div>
+              </div> */}
             </div>
 
             {/* Newsletter micro-input */}
