@@ -1,0 +1,9 @@
+{
+  "//": "Ensure client-side routes like /contact and /roster work on direct load and refresh.",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
