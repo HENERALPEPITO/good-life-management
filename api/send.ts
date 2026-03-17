@@ -26,7 +26,7 @@ export default async function handler(req: any, res: any) {
     // --- Email 1: Notify GoodLife ---
     const { error: notifyError } = await resend.emails.send({
       from: 'GoodLife <noreply@goodlife-publishing.com>',
-      to: 'hello@goodlife-publishing.com',
+      to: 'hello@goodlifemgmt.net',
       subject: `Goodlife Management Inquiry: ${subject || 'N/A'}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>

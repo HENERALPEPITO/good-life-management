@@ -35,7 +35,7 @@ app.post('/api/send', async (req, res) => {
     // --- Email 1: Notify GoodLife ---
     const { error: notifyError } = await resend.emails.send({
       from: 'GoodLife <noreply@goodlife-publishing.com>',
-      to: 'hello@goodlife-publishing.com',
+      to: 'hello@goodlifemgmt.net',
       subject: `Goodlife Management Inquiry`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
