@@ -4,8 +4,14 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const artists = [
-    'ANDRUSS', 'MICHAELBM', 'FACU BAEZ', 
-    'RAFFA FL', 'MINOW', 'VOID', 'TAYLOR TORRENCE'
+    { name: 'ANDRUSS', id: 'andruss' },
+    { name: 'AUNDREJA', id: 'aundreja' },
+    { name: 'MICHAELBM', id: 'michaelbm' },
+    { name: 'FACU BAEZ', id: 'facu-baez' },
+    { name: 'RAFFA FL', id: 'raffa-fl' },
+    { name: 'MINOW', id: 'minow' },
+    { name: 'VOID', id: 'void' },
+    { name: 'TAYLOR TORRENCE', id: 'taylor-torrence' },
   ];
 
   const scrollToTop = () => {
@@ -94,13 +100,13 @@ const Footer: React.FC = () => {
             </p>
             <ul className="space-y-2">
               {artists.map(artist => (
-                <li key={artist} className="group flex items-center">
+                <li key={artist.id} className="group flex items-center">
                   <span className="opacity-0 group-hover:opacity-100 text-orange-600 mr-2 transition-opacity">·</span>
                   <Link 
-                    to="/roster"
+                    to={`/roster#${artist.id}`}
                     className="font-body text-white/60 text-xs uppercase tracking-widest hover:text-orange-600 transition-colors duration-200"
                   >
-                    {artist}
+                    {artist.name}
                   </Link>
                 </li>
               ))}

@@ -182,6 +182,7 @@ const ArtistGrid: React.FC = () => {
             {sortedArtists.map((artist, index) => (
               <motion.div
                 key={artist.id}
+                id={artist.id}
                 layout
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}

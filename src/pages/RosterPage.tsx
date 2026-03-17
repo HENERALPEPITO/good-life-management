@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
+import { useLocation } from 'react-router-dom';
 import ArtistGrid from '../components/ArtistGrid';
 
 export default function RosterPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const id = location.hash.slice(1);
+
+    // Wait for grid to render, then scroll
+    const timeout = window.setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+
+    return () => window.clearTimeout(timeout);
+  }, [location.hash]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
