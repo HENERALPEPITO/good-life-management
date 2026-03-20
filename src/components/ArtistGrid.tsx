@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 import ArtistModal from './ArtistModal';
@@ -97,7 +97,7 @@ const artists: Artist[] = [
     instagram: '@minowmusic',
     spotify: 'Minow',
     instagramUrl: 'https://www.instagram.com/minowmusic/',
-    spotifyUrl: 'https://open.spotify.com/artist/3VyPXiL5JyFlV4Hzl6Y1xE',
+    spotifyUrl: 'https://open.spotify.com/artist/53WBL9mWs6KRVyrWBB6Fen',
     beatportUrl: 'https://www.beatport.com/artist/minow/599018',
     youtubeUrl: 'https://www.youtube.com/channel/UCuhUVy3vqL6ttSKjOkbmx2Q',
     gallery: ['/images/Minow/Minow_gallery1.jpeg', '/images/Minow/Minow_gallery2.jpeg', '/images/Minow/Minow_gallery3.jpeg', '/images/Minow/Minow_gallery4.jpeg']
@@ -146,8 +146,182 @@ const artists: Artist[] = [
   }
 ];
 
+const ARTIST_AUDIO_MAP: Record<string, string> = {
+  andruss: '/images/Andruss/andrus.mp3',
+  aundreja: '/images/Aundreja/aundreja.mp3',
+  'facu-baez': '/images/facu-baez/facu-baez.mp3',
+  michaelbm: '/images/Michaelbm/michaelbm.mp3',
+  minow: '/images/Minow/minow.mp3',
+  'raffa-fl': '/images/Rafafl/rafafl.mp3',
+  'taylor-torrence': '/images/Taylor_Torrence/Taylor_torrence.mp3',
+  void: '/images/Void/void.mp3'
+};
+
+const DEFAULT_AUDIO_VOLUME = 0.25;
+const MAX_AUDIO_VOLUME = 0.5;
+const FADE_IN_MS = 1800;
+const FADE_OUT_MS = 1200;
+
+const clampVolume = (value: number) => Math.max(0, Math.min(MAX_AUDIO_VOLUME, value));
+
 const ArtistGrid: React.FC = () => {
   const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const fadeRafRef = useRef<number | null>(null);
+  const transitionTokenRef = useRef(0);
+  const preloadedAudioRef = useRef<HTMLAudioElement[]>([]);
+
+  const cancelActiveFade = useCallback(() => {
+    if (fadeRafRef.current !== null) {
+      cancelAnimationFrame(fadeRafRef.current);
+      fadeRafRef.current = null;
+    }
+  }, []);
+
+  const fadeAudioTo = useCallback(
+    (audio: HTMLAudioElement, targetVolume: number, durationMs: number, token: number) =>
+      new Promise<void>((resolve) => {
+        cancelActiveFade();
+        const startVolume = audio.volume;
+        const clampedTarget = Math.max(0, Math.min(1, targetVolume));
+        const startTime = performance.now();
+
+        const tick = (now: number) => {
+          if (transitionTokenRef.current !== token) {
+            resolve();
+            return;
+          }
+
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / durationMs, 1);
+          audio.volume = startVolume + (clampedTarget - startVolume) * progress;
+
+          if (progress >= 1) {
+            fadeRafRef.current = null;
+            resolve();
+            return;
+          }
+
+          fadeRafRef.current = requestAnimationFrame(tick);
+        };
+
+        fadeRafRef.current = requestAnimationFrame(tick);
+      }),
+    [cancelActiveFade]
+  );
+
+  const getAudioInstance = useCallback(() => {
+    if (!audioRef.current) {
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.loop = true;
+      audio.volume = 0;
+      audioRef.current = audio;
+    }
+
+    return audioRef.current;
+  }, []);
+
+  const stopAudioWithFade = useCallback(async () => {
+    const audio = audioRef.current;
+    if (!audio || audio.paused) return;
+
+    const token = ++transitionTokenRef.current;
+    await fadeAudioTo(audio, 0, FADE_OUT_MS, token);
+    if (transitionTokenRef.current !== token) return;
+
+    audio.pause();
+    audio.currentTime = 0;
+  }, [fadeAudioTo]);
+
+  const playArtistAudio = useCallback(
+    async (artistId: string) => {
+      const nextSrc = ARTIST_AUDIO_MAP[artistId];
+      if (!nextSrc) return;
+
+      const audio = getAudioInstance();
+      const targetVolume = isMuted ? 0 : clampVolume(DEFAULT_AUDIO_VOLUME);
+      const token = ++transitionTokenRef.current;
+      const currentPath = audio.src ? new URL(audio.src).pathname : '';
+
+      if (!audio.paused && currentPath === nextSrc) {
+        await fadeAudioTo(audio, targetVolume, FADE_IN_MS, token);
+        return;
+      }
+
+      if (!audio.paused) {
+        await fadeAudioTo(audio, 0, FADE_OUT_MS, token);
+        if (transitionTokenRef.current !== token) return;
+        audio.pause();
+      }
+
+      audio.src = nextSrc;
+      audio.load();
+      audio.currentTime = 0;
+      audio.volume = 0;
+      audio.muted = false;
+
+      try {
+        await audio.play();
+      } catch {
+        return;
+      }
+
+      await fadeAudioTo(audio, targetVolume, FADE_IN_MS, token);
+    },
+    [fadeAudioTo, getAudioInstance, isMuted]
+  );
+
+  const handleViewArtist = useCallback(
+    (artist: Artist) => {
+      setSelectedArtist(artist);
+      void playArtistAudio(artist.id);
+    },
+    [playArtistAudio]
+  );
+
+  useEffect(() => {
+    const preloaders = Object.values(ARTIST_AUDIO_MAP).map((src) => {
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.src = src;
+      audio.load();
+      return audio;
+    });
+
+    preloadedAudioRef.current = preloaders;
+
+    return () => {
+      transitionTokenRef.current += 1;
+      cancelActiveFade();
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+
+      preloadedAudioRef.current.forEach((audio) => {
+        audio.src = '';
+      });
+      preloadedAudioRef.current = [];
+    };
+  }, [cancelActiveFade]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || audio.paused) return;
+
+    const token = ++transitionTokenRef.current;
+    const targetVolume = isMuted ? 0 : clampVolume(DEFAULT_AUDIO_VOLUME);
+    void fadeAudioTo(audio, targetVolume, 300, token);
+  }, [fadeAudioTo, isMuted]);
+
+  useEffect(() => {
+    if (!selectedArtist) {
+      void stopAudioWithFade();
+    }
+  }, [selectedArtist, stopAudioWithFade]);
 
   const sortedArtists = [...artists].sort((a, b) => a.name.localeCompare(b.name));
 
@@ -174,6 +348,14 @@ const ArtistGrid: React.FC = () => {
           <div className="text-zinc-500 font-body text-xs tracking-widest uppercase">
             {sortedArtists.length} ARTISTS
           </div>
+          <button
+            type="button"
+            onClick={() => setIsMuted((prev) => !prev)}
+            className="text-xs font-body font-bold uppercase tracking-widest text-white border border-white/30 px-4 py-2 hover:bg-accent hover:border-accent transition-all"
+            aria-label={isMuted ? 'Unmute artist background audio' : 'Mute artist background audio'}
+          >
+            {isMuted ? 'UNMUTE AUDIO' : 'MUTE AUDIO'}
+          </button>
         </div>
 
         {/* Dynamic Portfolio Grid */}
@@ -190,7 +372,7 @@ const ArtistGrid: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
                 className="group relative overflow-hidden cursor-pointer bg-zinc-900"
-                onClick={() => setSelectedArtist(artist)}
+                onClick={() => handleViewArtist(artist)}
               >
                 {/* Image Container */}
                 <div className="relative w-full h-full aspect-[3/4] overflow-hidden">
